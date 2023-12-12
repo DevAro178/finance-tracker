@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\authController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FinanceTrackerController;
@@ -17,3 +18,5 @@ use App\Http\Controllers\FinanceTrackerController;
 
 // Route for homepage via controller FinanceTrackerController index function
 Route::get('/', [FinanceTrackerController::class, 'index'])->name('home');
+Route::get('/login', [authController::class, 'login'])->name('login');
+Route::get('/signup', [authController::class, 'signup'])->name('signup');

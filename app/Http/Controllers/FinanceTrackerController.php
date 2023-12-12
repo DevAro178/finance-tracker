@@ -8,6 +8,6 @@ class FinanceTrackerController extends Controller
 {
     public function index()
     {
-        return response("adasdsd", 200)->header('content-type', 'text/plain');
+        return view('finance.dashboard');
     }
 }
