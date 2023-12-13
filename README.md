@@ -1,5 +1,5 @@
 Tasks:
-    Correct the foriegn key relations and find a theme or template for this.
+    Make single pages like Dashboard, Settings, Profile and others.
     
 
 
