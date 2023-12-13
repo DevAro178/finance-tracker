@@ -2,7 +2,7 @@
 <x-bannerPrimary class="bg-primary" />
 <x-sidebar />
 <x-mainWrapper class="border-radius-lg">
-    <x-navbar />
+    <x-navbar :pageName="'Dashboard'" />
     <x-container>
         <div class="row">
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">

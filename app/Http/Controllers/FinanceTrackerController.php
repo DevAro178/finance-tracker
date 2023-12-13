@@ -14,4 +14,12 @@ class FinanceTrackerController extends Controller
     {
         return view('finance.profile');
     }
+    public function settings()
+    {
+        return view('finance.settings');
+    }
+    public function addAccount()
+    {
+        return view('finance.addAccount');
+    }
 }
