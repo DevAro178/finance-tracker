@@ -10,4 +10,8 @@ class FinanceTrackerController extends Controller
     {
         return view('finance.dashboard');
     }
+    public function profile()
+    {
+        return view('finance.profile');
+    }
 }

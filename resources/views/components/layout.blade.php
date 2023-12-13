@@ -22,15 +22,15 @@
 </head>
 
 <body {{$attributes->merge(['class'=>'g-sidenav-show bg-gray-100'])}}>
-
     {{$slot}}
-
+    <x-flashmessage />
 <x-tools />
 <!--   Core JS Files   -->
 <script src="./assets/js/core/popper.min.js"></script>
 <script src="./assets/js/core/bootstrap.min.js"></script>
 <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="//unpkg.com/alpinejs" defer></script>
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {

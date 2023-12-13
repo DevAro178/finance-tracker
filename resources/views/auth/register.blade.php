@@ -7,30 +7,45 @@
                 <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
                   <div class="card card-plain">
                     <div class="card-header pb-0 text-start">
-                      <h4 class="font-weight-bolder">Sign Up</h4>
-                      <p class="mb-0">Enter your details to sign up</p>
+                      <h4 class="font-weight-bolder">Register</h4>
+                      <p class="mb-0">Enter your details to Register</p>
                     </div>
                     <div class="card-body">
-                      <form role="form">
+                      <form method="POST" action="{{route('register')}}">
+                        @csrf
                         <div class="mb-3">
-                          <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email">
+                          <input type="text" class="form-control form-control-lg" name="username" placeholder="Username" aria-label="Username" value="{{old('username')}}">
+                            @error('username')
+                                <span class="text-danger text-xs mt-1">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="mb-3">
-                          <input type="email" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
+                          <input type="email" class="form-control form-control-lg" name="email" placeholder="Email" aria-label="Email" value="{{old('email')}}">
+                        @error('email')
+                              <span class="text-danger text-xs mt-1">{{$message}}</span>
+                        @enderror
                         </div>
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="rememberMe">
-                          <label class="form-check-label" for="rememberMe">Remember me</label>
+                        <div class="mb-3">
+                          <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" aria-label="Password" value="{{old('password')}}">
+                          @error('password')
+                              <span class="text-danger text-xs mt-1">{{$message}}</span>
+                          @enderror
+                        </div>
+                        <div class="mb-3">
+                          <input type="password" class="form-control form-control-lg" name="password_confirmation" placeholder="Password" aria-label="Password" value="{{old('password_confirmation')}}">
+                          @error('password_confirmation')
+                              <span class="text-danger text-xs mt-1">{{$message}}</span>
+                          @enderror
                         </div>
                         <div class="text-center">
-                          <button type="button" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign up</button>
+                          <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Register</button>
                         </div>
                       </form>
                     </div>
                     <div class="card-footer text-center pt-0 px-lg-2 px-1">
                       <p class="mb-4 text-sm mx-auto">
                         Already have an account?
-                        <a href="javascript:;" class="text-primary text-gradient font-weight-bold">Sign In</a>
+                        <a href="{{route('login')}}" class="text-primary text-gradient font-weight-bold">login</a>
                       </p>
                     </div>
                   </div>

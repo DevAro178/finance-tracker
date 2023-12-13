@@ -1,7 +1,7 @@
 <x-layout>
-<x-bannerPrimary />
+<x-bannerPrimary class="bg-primary" />
 <x-sidebar />
-<x-mainWrapper>
+<x-mainWrapper class="border-radius-lg">
     <x-navbar />
     <x-container>
         <div class="row">
