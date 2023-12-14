@@ -48,7 +48,7 @@
                                     <span class="text-secondary text-xs font-weight-bold">{{$account->created_at->format('d-m-Y')}}</span>
                                     </td>
                                     <td class="align-middle">
-                                    <a href="{{route('edit.account',['id'=>$account->id])}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                    <a href="{{route('edit.account',['id'=>$account->id])}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit account">
                                         Edit
                                     </a>
                                     </td>
@@ -66,7 +66,7 @@
                   <div class="card mb-4">
                     <div class="card-header pb-0 d-flex align-items-center">
                       <h6>Categories</h6>
-                      <button class="btn btn-primary btn-sm ms-auto"><i class="fa fa-plus text-xs"></i> &nbsp;&nbsp;Add Category</button>
+                      <a href="{{route('add.category')}}" class="btn btn-primary btn-sm ms-auto"><i class="fa fa-plus text-xs"></i> &nbsp;&nbsp;Add Category</a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                       <div class="table-responsive p-0">
@@ -80,96 +80,39 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>
-                                <div class="d-flex px-2">
-                                  <div>
-                                    <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
-                                  </div>
-                                  <div class="my-auto">
-                                    <h6 class="mb-0 text-sm">Spotify</h6>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <p class="text-sm font-weight-bold mb-0">$2,500</p>
-                              </td>
-                              <td class="align-middle text-center">
-                                <div class="d-flex align-items-center justify-content-center">
-                                  <span class="me-2 text-xs font-weight-bold">60%</span>
-                                  <div>
-                                    <div class="progress">
-                                      <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                            @foreach ($categories as $category)
+
+                                <tr>
+                                    <td>
+                                    <div class="d-flex px-2">
+                                        <div>
+                                        <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                                        </div>
+                                        <div class="my-auto">
+                                        <h6 class="mb-0 text-sm">{{$category->name}}</h6>
+                                        </div>
                                     </div>
-                                  </div>
-                                </div>
-                              </td>
-                              <td class="align-middle">
-                                <button class="btn btn-link text-secondary mb-0">
-                                  <i class="fa fa-pencil text-xs"></i>
-                                </button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="d-flex px-2">
-                                  <div>
-                                    <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
-                                  </div>
-                                  <div class="my-auto">
-                                    <h6 class="mb-0 text-sm">Spotify</h6>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <p class="text-sm font-weight-bold mb-0">$2,500</p>
-                              </td>
-                              <td class="align-middle text-center">
-                                <div class="d-flex align-items-center justify-content-center">
-                                  <span class="me-2 text-xs font-weight-bold">60%</span>
-                                  <div>
-                                    <div class="progress">
-                                      <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                                    </td>
+                                    <td>
+                                    <p class="text-sm font-weight-bold mb-0">{{$category->amount}} pkr</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <span class="me-2 text-xs font-weight-bold">60%</span>
+                                        <div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                                        </div>
+                                        </div>
                                     </div>
-                                  </div>
-                                </div>
-                              </td>
-                              <td class="align-middle">
-                                <button class="btn btn-link text-secondary mb-0">
-                                  <i class="fa fa-pencil text-xs"></i>
-                                </button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="d-flex px-2">
-                                  <div>
-                                    <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
-                                  </div>
-                                  <div class="my-auto">
-                                    <h6 class="mb-0 text-sm">Spotify</h6>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <p class="text-sm font-weight-bold mb-0">$2,500</p>
-                              </td>
-                              <td class="align-middle text-center">
-                                <div class="d-flex align-items-center justify-content-center">
-                                  <span class="me-2 text-xs font-weight-bold">60%</span>
-                                  <div>
-                                    <div class="progress">
-                                      <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </td>
-                              <td class="align-middle">
-                                <button class="btn btn-link text-secondary mb-0">
-                                  <i class="fa fa-pencil text-xs"></i>
-                                </button>
-                              </td>
-                            </tr>
+                                    </td>
+                                    <td class="align-middle">
+                                    <button class="btn btn-link text-secondary mb-0">
+                                        <a href="{{route('edit.category',['id'=>$category->id])}}"><i class="fa fa-pencil text-xs"></i></a>
+                                    </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                           </tbody>
                         </table>
                       </div>

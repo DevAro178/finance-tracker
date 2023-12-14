@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class FinanceTrackerController extends Controller
@@ -19,6 +20,7 @@ class FinanceTrackerController extends Controller
     {
         $context = [
             'accounts' => Account::where('user_id', auth()->user()->id)->orderBy('updated_at', 'desc')->get(),
+            'categories' => Category::where('user_id', auth()->user()->id)->orderBy('updated_at', 'desc')->get(),
         ];
         return view('finance.settings', $context);
     }
@@ -70,4 +72,42 @@ class FinanceTrackerController extends Controller
 
 
     // Category Routes
+    public function addCategory()
+    {
+        return view('finance.addCategory');
+    }
+    public function storeCategory(Request $request)
+    {
+        $formFields = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'amount' => ['required', 'numeric'],
+        ]);
+
+        $formFields['user_id'] = auth()->user()->id;
+        $category = Category::Create($formFields);
+        return redirect()->route('settings')->with('message', 'Category added successfully');
+    }
+    public function editCategory()
+    {
+        $context = [
+            'category' => Category::find(request()->route('id')),
+        ];
+        return view('finance.editCategory', $context);
+    }
+    public function updateCategory(Request $request)
+    {
+        $formFields = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'amount' => ['required', 'numeric'],
+        ]);
+        $category = Category::find(request()->route('id'));
+        $category->update($formFields);
+        return redirect()->route('settings')->with('message', 'Category updated successfully');
+    }
+    public function deleteCategory()
+    {
+        $category = Category::find(request()->route('id'));
+        $category->delete();
+        return redirect()->route('settings')->with('message', 'Category deleted successfully');
+    }
 }

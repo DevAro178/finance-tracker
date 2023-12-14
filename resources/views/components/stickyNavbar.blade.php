@@ -35,7 +35,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/sign-up.html">
+                  <a class="nav-link me-2" href="{{route('settings')}}">
                     <i class="fas fa-cog opacity-6 text-dark me-1"></i>
                     Settings
                   </a>
