@@ -1,5 +1,5 @@
 Tasks:
-    Make single pages like Dashboard, Settings, Profile and others.
+    Change darl theme (Laravel Documentation Theme)
     
 
 
