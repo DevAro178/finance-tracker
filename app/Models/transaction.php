@@ -9,6 +9,14 @@ class transaction extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'account_id',
+        'category_id',
+        'date',
+        'amount',
+        'note',
+    ];
+
     public function account()
     {
         return $this->belongsTo(account::class, 'account_id', 'id');
