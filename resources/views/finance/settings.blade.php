@@ -4,13 +4,12 @@
     <x-mainWrapper class="border-radius-lg">
         <x-navbar :pageName="'Settings'" />
         <x-container>
-
             <div class="row">
                 <div class="col-12">
                   <div class="card mb-4">
                     <div class="card-header pb-0 d-flex align-items-center">
                       <h6>Accounts</h6>
-                      <a href="{{route('add.account')}}" class="btn btn-primary btn-sm ms-auto"><i class="fa fa-plus text-xs"></i> &nbsp;&nbsp;&nbsp;&nbsp;Add Account</a>
+                      <a href="{{route('add.account')}}" class="btn btn-primary btn-sm ms-auto"><i class="fa fa-plus text-xs"></i> &nbsp;&nbsp;Add Account</a>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                       <div class="table-responsive p-0">
@@ -18,53 +17,43 @@
                           <thead>
                             <tr>
                               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Balance</th>
+                              <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Updated On</th>
                               <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created On</th>
                               <th class="text-secondary opacity-7"></th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                                <td>
-                                  <div class="d-flex px-2 py-1">
-                                    <div>
-                                      <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
+
+                              @foreach ($accounts as $account)
+                                <tr>
+                                    <td>
+                                    <div class="d-flex px-2 py-1">
+                                        <div>
+                                        <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 text-sm">{{$account->name}}</h6>
+                                        <p class="text-xs text-secondary mb-0">{{$account->type}}</p>
+                                        </div>
                                     </div>
-                                    <div class="d-flex flex-column justify-content-center">
-                                      <h6 class="mb-0 text-sm">John Michael</h6>
-                                      <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td class="align-middle text-center">
-                                  <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                                </td>
-                                <td class="align-middle">
-                                  <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                    Edit
-                                  </a>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <div class="d-flex px-2 py-1">
-                                    <div>
-                                      <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                                    </div>
-                                    <div class="d-flex flex-column justify-content-center">
-                                      <h6 class="mb-0 text-sm">John Michael</h6>
-                                      <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td class="align-middle text-center">
-                                  <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                                </td>
-                                <td class="align-middle">
-                                  <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                    Edit
-                                  </a>
-                                </td>
-                              </tr>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                    <span class="text-sm font-weight-bold mb-0">{{$account->balance}} pkr</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{$account->updated_at->format('d-m-Y')}}</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{$account->created_at->format('d-m-Y')}}</span>
+                                    </td>
+                                    <td class="align-middle">
+                                    <a href="{{route('edit.account',['id'=>$account->id])}}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                        Edit
+                                    </a>
+                                    </td>
+                                </tr>
+                              @endforeach
                           </tbody>
                         </table>
                       </div>
@@ -77,7 +66,7 @@
                   <div class="card mb-4">
                     <div class="card-header pb-0 d-flex align-items-center">
                       <h6>Categories</h6>
-                      <button class="btn btn-primary btn-sm ms-auto"><i class="fa fa-plus text-xs"></i> &nbsp;&nbsp;&nbsp;&nbsp;Add Category</button>
+                      <button class="btn btn-primary btn-sm ms-auto"><i class="fa fa-plus text-xs"></i> &nbsp;&nbsp;Add Category</button>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                       <div class="table-responsive p-0">

@@ -44,10 +44,6 @@ class User extends Authenticatable
     ];
 
     // relationships
-    public function budget()
-    {
-        return $this->hasMany(budget::class, 'id', 'user_id');
-    }
     public function account()
     {
         return $this->hasMany(account::class, 'id', 'user_id');

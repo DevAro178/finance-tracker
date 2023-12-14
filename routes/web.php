@@ -27,4 +27,9 @@ Route::get('/', [FinanceTrackerController::class, 'index'])->name('dashboard')->
 Route::get('/profile', [FinanceTrackerController::class, 'profile'])->name('profile')->middleware('auth');
 // Settings Route for Account and Categories listing
 Route::get('/settings', [FinanceTrackerController::class, 'settings'])->name('settings')->middleware('auth');
+// Accoutn Routes
 Route::get('/add/account', [FinanceTrackerController::class, 'addAccount'])->name('add.account')->middleware('auth');
+Route::post('/add/account', [FinanceTrackerController::class, 'storeAccount'])->name('add.account.store')->middleware('auth');
+Route::get('/edit/account/{id}', [FinanceTrackerController::class, 'editAccount'])->name('edit.account')->middleware('auth');
+Route::put('/edit/account/{id}', [FinanceTrackerController::class, 'updateAccount'])->name('edit.account.update')->middleware('auth');
+Route::delete('/delete/account/{id}', [FinanceTrackerController::class, 'deleteAccount'])->name('delete.account')->middleware('auth');
