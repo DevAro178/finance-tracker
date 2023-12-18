@@ -35,6 +35,7 @@
                 </div>
                 <div class="col-xl-8">
                   <div class="row">
+                    @foreach ($accounts as $account)
                     <div class="col-md-4">
                       <div class="card">
                         <div class="card-header mx-4 p-3 text-center">
@@ -43,14 +44,17 @@
                           </div>
                         </div>
                         <div class="card-body pt-0 p-3 text-center">
-                          <h6 class="text-center mb-0">Salary</h6>
-                          <span class="text-xs">Belong Interactive</span>
+                          <h6 class="text-center mb-0">{{$account->name}}</h6>
+                          <span class="text-xs">{{$account->type}}</span>
                           <hr class="horizontal dark my-3">
-                          <h5 class="mb-0">+$2000</h5>
+                          <h5 class="mb-0">{{$account->balance}} pkr</h5>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-4 mt-md-0 mt-4">
+
+                    @endforeach
+
+                    {{-- <div class="col-md-4 mt-md-0 mt-4">
                       <div class="card">
                         <div class="card-header mx-4 p-3 text-center">
                           <div class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
@@ -79,7 +83,7 @@
                           <h5 class="mb-0">$455.00</h5>
                         </div>
                       </div>
-                    </div>
+                    </div> --}}
                   </div>
                 </div>
               </div>
@@ -99,20 +103,26 @@
                   </div>
                 </div>
                 <div class="card-body pt-4 p-3">
-                @foreach ($data as $accountId => $transactions)
+                {{-- @foreach ($data as $accountId => $transactions) --}}
                   <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Newest</h6>
                   <ul class="list-group">
-                    @forelse ($transactions['today_transactions'] as $transaction)
+                    @forelse ($today_transactions as $transaction)
+                    {{-- @php
+                    echo("<pre>");
+                        print_r($today_transactions);
+                    echo("</pre>");
+                        die();
+                    @endphp --}}
                         <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                             <div class="d-flex align-items-center">
                             <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-down"></i></button>
                             <div class="d-flex flex-column">
-                                <h6 class="mb-1 text-dark text-sm">{{$transaction->name}}</h6>
-                                <span class="text-xs">{{$transaction->date}}, at {{ date('h:i A', strtotime($transaction->created_at)) }}</span>
+                                <h6 class="mb-1 text-dark text-sm">{{$transaction['name']}}</h6>
+                                <span class="text-xs">{{$transaction['date']}}, at {{ date('h:i A', strtotime($transaction['created_at'])) }}</span>
                             </div>
                             </div>
                             <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
-                            - {{$transaction->amount}} pkr
+                            - {{$transaction['amount']}} pkr
                             </div>
                         </li>
                     @empty
@@ -121,24 +131,25 @@
                   </ul>
                   <h6 class="text-uppercase text-body text-xs font-weight-bolder my-3">Yesterday</h6>
                   <ul class="list-group">
-                    @forelse ($transactions['yesterday_transactions'] as $transaction)
-                        <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                            <div class="d-flex align-items-center">
-                            <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-down"></i></button>
-                            <div class="d-flex flex-column">
-                                <h6 class="mb-1 text-dark text-sm">{{$transaction->name}}</h6>
-                                <span class="text-xs">{{$transaction->date}}, at {{ date('h:i A', strtotime($transaction->created_at)) }}</span>
-                            </div>
-                            </div>
-                            <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
-                            - {{$transaction->amount}} pkr
-                            </div>
-                        </li>
+                    {{-- @forelse ($transactions['yesterday_transactions'] as $transaction) --}}
+                    @forelse ($yesterday_transactions as $transaction)
+                    <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                        <div class="d-flex align-items-center">
+                        <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-down"></i></button>
+                        <div class="d-flex flex-column">
+                            <h6 class="mb-1 text-dark text-sm">{{$transaction['name']}}</h6>
+                            <span class="text-xs">{{$transaction['date']}}, at {{ date('h:i A', strtotime($transaction['created_at'])) }}</span>
+                        </div>
+                        </div>
+                        <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
+                        - {{$transaction['amount']}} pkr
+                        </div>
+                    </li>
                     @empty
                         <div class="d-flex justify-content-center"><p class="text-xs font-weight-bold mb-0">No Transactions Yesterday.</p></div>
                     @endforelse
                   </ul>
-                @endforeach
+                {{-- @endforeach --}}
                 </div>
               </div>
             </div>

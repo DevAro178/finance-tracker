@@ -31,18 +31,23 @@ class FinanceTrackerController extends Controller
         $yesterday = date('Y-m-d', strtotime('-1 day'));
 
         $accounts = Account::where('user_id', auth()->user()->id)->get();
-        $data = [];
+        $data_accounts = $accounts->slice(0, 3);
+
+        $today_transactions = [];
+        $yesterday_transactions = [];
 
         foreach ($accounts as $account) {
             $transactions = $account->transaction()->get();
-            $data[$account->id] = [
-                'today_transactions' => $transactions->where('date', $today),
-                'yesterday_transactions' => $transactions->where('date', $yesterday),
-            ];
+            $today_transactions = array_merge($today_transactions, $transactions->where('date', $today)->toArray());
+            $yesterday_transactions = array_merge($yesterday_transactions, $transactions->where('date', $yesterday)->toArray());
         }
+
         $context = [
-            'data' => $data,
+            'today_transactions' => $today_transactions,
+            'yesterday_transactions' => $yesterday_transactions,
+            'accounts' => $data_accounts,
         ];
+
         return view('finance.billing', $context);
     }
 }
