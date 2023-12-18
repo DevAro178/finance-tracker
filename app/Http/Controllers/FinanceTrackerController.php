@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\Category;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class FinanceTrackerController extends Controller
@@ -26,6 +27,22 @@ class FinanceTrackerController extends Controller
     }
     public function billing()
     {
-        return view('finance.billing');
+        $today = date('Y-m-d');
+        $yesterday = date('Y-m-d', strtotime('-1 day'));
+
+        $accounts = Account::where('user_id', auth()->user()->id)->get();
+        $data = [];
+
+        foreach ($accounts as $account) {
+            $transactions = $account->transaction()->get();
+            $data[$account->id] = [
+                'today_transactions' => $transactions->where('date', $today),
+                'yesterday_transactions' => $transactions->where('date', $yesterday),
+            ];
+        }
+        $context = [
+            'data' => $data,
+        ];
+        return view('finance.billing', $context);
     }
 }

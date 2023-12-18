@@ -13,6 +13,7 @@ class transaction extends Model
         'account_id',
         'category_id',
         'date',
+        'name',
         'amount',
         'note',
     ];

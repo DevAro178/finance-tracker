@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('account_id');
             $table->foreignId('category_id');
+            $table->string('name');
             $table->date('date');
             $table->integer('amount');
-            $table->string('note');
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

@@ -39,6 +39,12 @@
                           @enderror
                         </div>
                         <div class="mb-3">
+                          <input type="text" class="form-control form-control-lg" name="name" placeholder="Title" aria-label="Title" value="{{old('name')}}">
+                          @error('name')
+                                  <span class="text-danger text-xs mt-1">{{$message}}</span>
+                          @enderror
+                        </div>
+                        <div class="mb-3">
                           <input type="date" class="form-control form-control-lg" name="date" placeholder="date" aria-label="date" value="{{old('date')}}">
                           @error('date')
                                   <span class="text-danger text-xs mt-1">{{$message}}</span>

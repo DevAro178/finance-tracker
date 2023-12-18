@@ -29,7 +29,7 @@ use App\Http\Controllers\TransactionController;
 
 
 // Guest Routes
-Route::middleware('auth')->group(function () {
+Route::middleware('guest')->group(function () {
     Route::get('/login', [authController::class, 'login'])->name('login');
     Route::post('/login', [authController::class, 'authenticate'])->name('login.authenticate');
     Route::get('/register', [authController::class, 'register'])->name('register');
@@ -64,6 +64,7 @@ Route::middleware('auth')->group(function () {
 
     // Transaction Routes
     Route::prefix('transaction')->group(function () {
+        Route::get('/', [TransactionController::class, 'show'])->name('transaction');
         Route::get('/add', [TransactionController::class, 'index'])->name('add.transaction');
         Route::post('/add', [TransactionController::class, 'store'])->name('add.transaction.store');
         // Route::get('/edit/{id}', [FinanceTrackerController::class, 'edit'])->name('edit.transaction');

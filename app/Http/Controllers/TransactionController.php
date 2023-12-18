@@ -18,14 +18,24 @@ class TransactionController extends Controller
         ];
         return view('transaction.index', $context);
     }
+
+    public function show()
+    {
+        $context = [
+            'transactions' => transaction::all(),
+        ];
+        return view('transaction.show', $context);
+    }
+
     public function store(Request $request)
     {
         $formFields = $request->validate([
             'account_id' => 'required|numeric',
             'category_id' => 'required|numeric',
+            'name' => 'required|string',
             'date' => 'required|date',
             'amount' => 'required|numeric',
-            'note' => 'required|string',
+            'note' => 'nullable|string',
         ]);
 
         transaction::Create($formFields);

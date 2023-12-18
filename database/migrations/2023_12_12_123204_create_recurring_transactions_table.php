@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('account_id');
             $table->foreignId('category_id');
+            $table->string('name');
             $table->integer('amount');
             $table->date('due_date');
             $table->timestamps();
