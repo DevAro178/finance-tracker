@@ -98,7 +98,7 @@
                       <h6 class="mb-0">Your Transaction's</h6>
                     </div>
                     <div class="col-6 text-end">
-                      <button class="btn btn-outline-primary btn-sm mb-0">View All</button>
+                      <a href="{{route('transaction')}}" class="btn btn-outline-primary btn-sm mb-0">View All</a>
                     </div>
                   </div>
                 </div>
@@ -107,12 +107,6 @@
                   <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Newest</h6>
                   <ul class="list-group">
                     @forelse ($today_transactions as $transaction)
-                    {{-- @php
-                    echo("<pre>");
-                        print_r($today_transactions);
-                    echo("</pre>");
-                        die();
-                    @endphp --}}
                         <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                             <div class="d-flex align-items-center">
                             <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-down"></i></button>

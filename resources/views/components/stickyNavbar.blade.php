@@ -43,7 +43,7 @@
               </ul>
               <ul class="navbar-nav d-lg-block d-none">
                 <li class="nav-item">
-                  <a href="{{route('settings')}}" class="btn btn-sm mb-0 me-1 btn-primary"><i class="fa fa-arrow-left text-xs"></i> &nbsp;&nbsp;Back</a>
+                  <a href="javascript:history.back()" class="btn btn-sm mb-0 me-1 btn-primary"><i class="fa fa-arrow-left text-xs"></i> &nbsp;&nbsp;Back</a>
                 </li>
               </ul>
             </div>
