@@ -67,8 +67,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [TransactionController::class, 'show'])->name('transaction');
         Route::get('/add', [TransactionController::class, 'index'])->name('add.transaction');
         Route::post('/add', [TransactionController::class, 'store'])->name('add.transaction.store');
-        // Route::get('/edit/{id}', [FinanceTrackerController::class, 'edit'])->name('edit.transaction');
-        // Route::put('/edit/{id}', [FinanceTrackerController::class, 'update'])->name('edit.transaction.update');
-        // Route::delete('/delete/{id}', [FinanceTrackerController::class, 'destroy'])->name('delete.transaction');
+        Route::get('/edit/{id}', [TransactionController::class, 'edit'])->name('edit.transaction');
+        Route::put('/edit/{id}', [TransactionController::class, 'update'])->name('edit.transaction.update');
+        Route::delete('/delete/{id}', [TransactionController::class, 'destroy'])->name('delete.transaction');
+        Route::get('/{id}', [TransactionController::class, 'single'])->name('single.transaction.show');
+        Route::get('/filter/{month}', [TransactionController::class, 'filtered'])->name('transaction.month');
     });
 });
