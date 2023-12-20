@@ -6,7 +6,7 @@
                     class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
                         class="fas fa-arrow-down"></i></button>
                 <div class="d-flex flex-column">
-                    <a href="{{ route('single.transaction.show', ['id' => $transaction->id]) }}"
+                    <a href="{{ route('single.transaction.show', ['id' => $transaction['id']]) }}"
                         class="mb-1 text-dark fw-bold text-sm">
                         {{ $transaction['name'] }}
                     </a>
@@ -21,7 +21,6 @@
                     <a href="javascript:;" class="nav-link text-secondary mb-0 p-0" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
-                        {{-- adsadasdsa --}}
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                         aria-labelledby="dropdownMenuButton">

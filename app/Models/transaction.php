@@ -16,6 +16,7 @@ class transaction extends Model
         'name',
         'amount',
         'note',
+        'impact'
     ];
 
     public function account()

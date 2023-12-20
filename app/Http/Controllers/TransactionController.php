@@ -65,8 +65,21 @@ class TransactionController extends Controller
             'amount' => 'required|numeric',
             'note' => 'nullable|string',
         ]);
+        $transaction = transaction::find($id);
+        if ($transaction->account_id != $formFields['account_id']) {
+            $account = account::find($transaction->account_id);
+            $account->balance = $account->balance + $transaction->amount;
+            $account->save();
 
-        transaction::where('id', $id)->update($formFields);
+            $account = account::find($formFields['account_id']);
+            $account->balance = $account->balance - $formFields['amount'];
+            $account->save();
+        } else {
+            $account = account::find($transaction->account_id);
+            $account->balance = $account->balance - $transaction->amount + $formFields['amount'];
+            $account->save();
+        }
+        $transaction->update($formFields);
         return redirect()->route('transaction');
     }
 
@@ -80,13 +93,54 @@ class TransactionController extends Controller
             'amount' => 'required|numeric',
             'note' => 'nullable|string',
         ]);
+        $formFields['impact'] = 'down';
+        $transaction = transaction::Create($formFields);
 
-        transaction::Create($formFields);
+        $account = account::find($transaction->account_id);
+        $account->balance = $account->balance - $transaction->amount;
+        $account->save();
+
         return redirect()->route('dashboard');
     }
     public function destroy($id)
     {
-        transaction::destroy($id);
+        $transaction = transaction::find($id);
+
+        $account = account::find($transaction->account_id);
+        $account->balance = $account->balance + $transaction->amount;
+        $account->save();
+
+        $transaction->delete();
         return redirect()->back();
+    }
+
+    public function topupShow()
+    {
+        $context = [
+            'categories' => category::all(),
+            'accounts' => account::all(),
+            'topup' => 'true',
+        ];
+        return view('transaction.index', $context);
+    }
+
+    public function topup(Request $request)
+    {
+        $formFields = $request->validate([
+            'account_id' => 'required|numeric',
+            'category_id' => 'required|numeric',
+            'name' => 'required|string',
+            'date' => 'required|date',
+            'amount' => 'required|numeric',
+            'note' => 'nullable|string',
+        ]);
+        $formFields['impact'] = 'up';
+        $transaction = transaction::Create($formFields);
+
+        $account = account::find($transaction->account_id);
+        $account->balance = $account->balance + $transaction->amount;
+        $account->save();
+
+        return redirect()->route('dashboard');
     }
 }

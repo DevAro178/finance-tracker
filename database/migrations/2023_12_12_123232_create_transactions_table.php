@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date');
             $table->integer('amount');
             $table->string('note')->nullable();
+            $table->enum('impact', ['up', 'down']);
             $table->timestamps();
         });
     }
