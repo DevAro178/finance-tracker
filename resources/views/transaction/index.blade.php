@@ -33,21 +33,23 @@
                                             <span class="text-danger text-xs mt-1">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <div class="mb-3">
-                                        <select class="form-select form-control-lg" aria-label="Category"
-                                            name="category_id">
-                                            <option value="">Select Category</option>
-                                            @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}"
-                                                    {{ old('category') == $category->id ? 'selected' : '' }}>
-                                                    {{ $category->name }}</option>
-                                            @endforeach
+                                    @unless (isset($topup))
+                                        <div class="mb-3">
+                                            <select class="form-select form-control-lg" aria-label="Category"
+                                                name="category_id">
+                                                <option value="">Select Category</option>
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->id }}"
+                                                        {{ old('category') == $category->id ? 'selected' : '' }}>
+                                                        {{ $category->name }}</option>
+                                                @endforeach
 
-                                        </select>
-                                        @error('category')
-                                            <span class="text-danger text-xs mt-1">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+                                            </select>
+                                            @error('category')
+                                                <span class="text-danger text-xs mt-1">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    @endunless
                                     <div class="mb-3">
                                         <input type="text" class="form-control form-control-lg" name="name"
                                             placeholder="Title" aria-label="Title" value="{{ old('name') }}">

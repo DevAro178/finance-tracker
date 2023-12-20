@@ -59,26 +59,37 @@ class TransactionController extends Controller
     {
         $formFields = $request->validate([
             'account_id' => 'required|numeric',
-            'category_id' => 'required|numeric',
             'name' => 'required|string',
             'date' => 'required|date',
             'amount' => 'required|numeric',
             'note' => 'nullable|string',
         ]);
-        $transaction = transaction::find($id);
-        if ($transaction->account_id != $formFields['account_id']) {
-            $account = account::find($transaction->account_id);
-            $account->balance = $account->balance + $transaction->amount;
-            $account->save();
 
-            $account = account::find($formFields['account_id']);
-            $account->balance = $account->balance - $formFields['amount'];
-            $account->save();
-        } else {
-            $account = account::find($transaction->account_id);
-            $account->balance = $account->balance - $transaction->amount + $formFields['amount'];
-            $account->save();
+        $transaction = transaction::find($id);
+
+        if ($transaction->impact === 'down') {
+            $additionalFields = $request->validate([
+                'category_id' => 'required|numeric',
+            ]);
+            $formFields = array_merge($formFields, $additionalFields);
         }
+
+        if (isset($formFields['account_id'])) {
+            if ($transaction->account_id != $formFields['account_id']) {
+                $account = account::find($transaction->account_id);
+                $account->balance = $account->balance + $transaction->amount;
+                $account->save();
+
+                $account = account::find($formFields['account_id']);
+                $account->balance = $account->balance - $formFields['amount'];
+                $account->save();
+            } else {
+                $account = account::find($transaction->account_id);
+                $account->balance = $account->balance - $transaction->amount + $formFields['amount'];
+                $account->save();
+            }
+        }
+
         $transaction->update($formFields);
         return redirect()->route('transaction');
     }
@@ -128,7 +139,6 @@ class TransactionController extends Controller
     {
         $formFields = $request->validate([
             'account_id' => 'required|numeric',
-            'category_id' => 'required|numeric',
             'name' => 'required|string',
             'date' => 'required|date',
             'amount' => 'required|numeric',

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('account_id');
-            $table->foreignId('category_id');
+            $table->foreignId('category_id')->nullable();
             $table->string('name');
             $table->date('date');
             $table->integer('amount');

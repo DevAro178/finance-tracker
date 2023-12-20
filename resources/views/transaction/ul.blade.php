@@ -2,9 +2,17 @@
     @forelse ($transactions as $transaction)
         <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
             <div class="d-flex align-items-center">
-                <button
-                    class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
-                        class="fas fa-arrow-down"></i></button>
+
+
+                @if ($transaction['impact'] === 'up')
+                    <button
+                        class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
+                            class="fas fa-arrow-up"></i></button>
+                @else
+                    <button
+                        class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
+                            class="fas fa-arrow-down"></i></button>
+                @endif
                 <div class="d-flex flex-column">
                     <a href="{{ route('single.transaction.show', ['id' => $transaction['id']]) }}"
                         class="mb-1 text-dark fw-bold text-sm">
@@ -15,8 +23,15 @@
                 </div>
             </div>
             <div class="d-flex align-items-center">
-                <p class="text-danger text-gradient text-sm font-weight-bold mb-0">- {{ $transaction['amount'] }} pkr
-                </p>
+                @if ($transaction['impact'] === 'up')
+                    <p class="text-success text-gradient text-sm font-weight-bold mb-0">+ {{ $transaction['amount'] }}
+                        pkr
+                    </p>
+                @else
+                    <p class="text-danger text-gradient text-sm font-weight-bold mb-0">- {{ $transaction['amount'] }}
+                        pkr
+                    </p>
+                @endif
                 <div class="nav-item dropdown d-flex align-items-center ms-3">
                     <a href="javascript:;" class="nav-link text-secondary mb-0 p-0" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
