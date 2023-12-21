@@ -2,7 +2,7 @@
     <x-bannerPrimary class="bg-primary" />
     <x-sidebar />
     <x-mainWrapper class="border-radius-lg">
-        <x-navbar :pageName="'Dashboard'" />
+        <x-navbar :pageName="'Billing'" />
         <x-container>
             <div class="row">
                 <div class="col-lg-12">
@@ -43,10 +43,8 @@
                                     <div class="col-md-4">
                                         <div class="card">
                                             <div class="card-header mx-4 p-3 text-center">
-                                                <div
-                                                    class="icon icon-shape icon-lg bg-gradient-primary shadow text-center border-radius-lg">
-                                                    <i class="fas fa-landmark opacity-10"></i>
-                                                </div>
+                                                <img src="{{ $account->icon ? asset('storage/' . $account->icon) : asset('/storage/icons/no-image.png') }}"
+                                                    alt="icon" class="img-fluid" width="60px">
                                             </div>
                                             <div class="card-body pt-0 p-3 text-center">
                                                 <h6 class="text-center mb-0">{{ $account->name }}</h6>

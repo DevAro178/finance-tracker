@@ -11,7 +11,42 @@ class FinanceTrackerController extends Controller
 {
     public function index()
     {
-        return view('finance.dashboard');
+        // Categories
+        $categories = Category::where('user_id', auth()->user()->id)->get();
+        // Accounts
+        $accounts = Account::where('user_id', auth()->user()->id)->get();
+        $current_Accounts = Account::where('user_id', auth()->user()->id)->where('type', 'current')->get();
+        $saving_Accounts = Account::where('user_id', auth()->user()->id)->where('type', 'saving')->get();
+        // Calculations
+        $spentPerMonth = [];
+        for ($i = 0; $i < 12; $i++) {
+            $month = date('Y-m', strtotime("-$i month"));
+            $spent = 0;
+            foreach ($current_Accounts as $current_Account) {
+                $transactions = $current_Account->transaction()->where('date', 'like', $month . '%')->get();
+                foreach ($transactions as $transaction) {
+                    $spent += $transaction->amount;
+                }
+            }
+            $spentPerMonth[] = $spent;
+        }
+        $spentPerMonth = array_reverse($spentPerMonth);
+        $spent = $spentPerMonth[date('n') - 1];
+        $spentPerMonthString = implode(", ", $spentPerMonth);
+
+        $remaining = $current_Accounts->sum('balance');
+        $total_Income = $spent + $remaining;
+        $savings = $saving_Accounts->sum('balance');
+        $context = [
+            'spent' => number_format($spent, 2),
+            'remaining' => number_format($remaining, 2),
+            'total_Income' => number_format($total_Income, 2),
+            'savings' => number_format($savings, 2),
+            'spentPerMonthString' => $spentPerMonthString,
+            'accounts' => $accounts,
+            'categories' => $categories,
+        ];
+        return view('finance.dashboard', $context);
     }
     public function profile()
     {

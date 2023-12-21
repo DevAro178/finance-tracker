@@ -12,15 +12,12 @@ class account extends Model
         'type',
         'balance',
         'user_id',
+        'icon',
     ];
     use HasFactory;
     public function user()
     {
         return $this->belongsTo(user::class, 'user_id', 'id');
-    }
-    public function recurring_transaction()
-    {
-        return $this->hasMany(recurring_transaction::class, 'account_id', 'id');
     }
     public function transaction()
     {

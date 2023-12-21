@@ -118,7 +118,10 @@ class TransactionController extends Controller
         $transaction = transaction::find($id);
 
         $account = account::find($transaction->account_id);
-        $account->balance = $account->balance + $transaction->amount;
+        if ($transaction->impact === 'down')
+            $account->balance = $account->balance + $transaction->amount;
+        else
+            $account->balance = $account->balance - $transaction->amount;
         $account->save();
 
         $transaction->delete();

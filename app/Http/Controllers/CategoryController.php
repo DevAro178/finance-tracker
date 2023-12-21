@@ -19,6 +19,9 @@ class CategoryController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'amount' => ['required', 'numeric'],
         ]);
+        if ($request->hasFile('icon')) {
+            $formFields['icon'] = $request->file('icon')->store('icons', 'public');
+        }
 
         $formFields['user_id'] = auth()->user()->id;
         $category = Category::Create($formFields);
@@ -37,6 +40,9 @@ class CategoryController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'amount' => ['required', 'numeric'],
         ]);
+        if ($request->hasFile('icon')) {
+            $formFields['icon'] = $request->file('icon')->store('icons', 'public');
+        }
         $category = Category::find(request()->route('id'));
         $category->update($formFields);
         return redirect()->route('settings')->with('message', 'Category updated successfully');

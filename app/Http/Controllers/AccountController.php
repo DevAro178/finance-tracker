@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-    //
     public function index()
     {
         return view('account.addAccount');
@@ -19,6 +18,9 @@ class AccountController extends Controller
             'type' => ['required'],
             'balance' => ['required', 'numeric'],
         ]);
+        if ($request->hasFile('icon')) {
+            $formFields['icon'] = $request->file('icon')->store('icons', 'public');
+        }
 
         $formFields['user_id'] = auth()->user()->id;
         $account = Account::Create($formFields);
@@ -38,6 +40,9 @@ class AccountController extends Controller
             'type' => ['required'],
             'balance' => ['required', 'numeric'],
         ]);
+        if ($request->hasFile('icon')) {
+            $formFields['icon'] = $request->file('icon')->store('icons', 'public');
+        }
         $account = Account::find(request()->route('id'));
         $account->update($formFields);
         return redirect()->route('settings')->with('message', 'Account updated successfully');

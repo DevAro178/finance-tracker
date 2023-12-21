@@ -39,8 +39,8 @@
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
-                                                            <img src="../assets/img/team-2.jpg"
-                                                                class="avatar avatar-sm me-3" alt="user1">
+                                                            <img src="{{ $account->icon ? asset('storage/' . $account->icon) : asset('/storage/icons/no-image.png') }}"
+                                                                class="avatar avatar-sm me-3" alt="Account">
                                                         </div>
                                                         <div class="d-flex flex-column justify-content-center">
                                                             <h6 class="mb-0 text-sm">{{ $account->name }}</h6>
@@ -108,9 +108,9 @@
                                                 <td>
                                                     <div class="d-flex px-2">
                                                         <div>
-                                                            <img src="../assets/img/small-logos/logo-spotify.svg"
+                                                            <img src="{{ $category->icon ? asset('storage/' . $category->icon) : asset('/storage/icons/no-image.png') }}"
                                                                 class="avatar avatar-sm rounded-circle me-2"
-                                                                alt="spotify">
+                                                                alt="Category">
                                                         </div>
                                                         <div class="my-auto">
                                                             <h6 class="mb-0 text-sm">{{ $category->name }}</h6>
@@ -118,7 +118,8 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <p class="text-sm font-weight-bold mb-0">{{ $category->amount }} pkr
+                                                    <p class="text-sm font-weight-bold mb-0">{{ $category->amount }}
+                                                        pkr
                                                     </p>
                                                 </td>
                                                 <td class="align-middle text-center">
