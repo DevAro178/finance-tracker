@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class account extends Model
+class Account extends Model
 {
     protected $fillable = [
         'name',
@@ -17,10 +17,10 @@ class account extends Model
     use HasFactory;
     public function user()
     {
-        return $this->belongsTo(user::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function transaction()
     {
-        return $this->hasMany(transaction::class, 'account_id', 'id');
+        return $this->hasMany(Transaction::class, 'account_id', 'id');
     }
 }
