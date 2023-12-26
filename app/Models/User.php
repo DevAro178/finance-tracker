@@ -54,10 +54,10 @@ class User extends Authenticatable
     // relationships
     public function category()
     {
-        return $this->hasMany(category::class, 'id', 'user_id');
+        return $this->hasMany(Category::class, 'id', 'user_id');
     }
     public function account()
     {
-        return $this->hasMany(account::class, 'id', 'user_id');
+        return $this->hasMany(Account::class, 'id', 'user_id');
     }
 }

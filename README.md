@@ -1,6 +1,8 @@
-Tasks:
-    Change darl theme (Laravel Documentation Theme)
-    
+
+Make sure that the models are in capetalized (User,Account) 
+create an env from example env
+php artisan migrate
+php artisan storage:link
 
 
 

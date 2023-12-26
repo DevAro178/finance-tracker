@@ -160,17 +160,12 @@
                         <div class="card-body pt-0">
                             <div class="text-center mt-4">
                                 <h5>
-                                    Mark Davis<span class="font-weight-light">, 35</span>
+                                    {{ auth()->user()->name }}<span class="font-weight-light">
+                                        {{-- without bold --}}
+                                    </span>
                                 </h5>
-                                <div class="h6 font-weight-300">
-                                    <i class="ni location_pin mr-2"></i>Bucharest, Romania
-                                </div>
-                                <div class="h6 mt-4">
-                                    <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim
-                                    Officer
-                                </div>
                                 <div>
-                                    <i class="ni education_hat mr-2"></i>University of Computer Science
+                                    <i class="ni education_hat mr-2"></i>{{ auth()->user()->bio }}
                                 </div>
                             </div>
                         </div>

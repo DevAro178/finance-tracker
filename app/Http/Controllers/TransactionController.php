@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\account;
-use App\Models\category;
+use App\Models\Account;
+use App\Models\Category;
 use Nette\Utils\DateTime;
-use App\Models\transaction;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -14,8 +14,8 @@ class TransactionController extends Controller
     public function index()
     {
         $context = [
-            'categories' => category::all(),
-            'accounts' => account::all(),
+            'categories' => Category::all(),
+            'accounts' => Account::all(),
         ];
         return view('transaction.index', $context);
     }
@@ -24,7 +24,7 @@ class TransactionController extends Controller
     {
         $currentDate = date('Y-m');
         $context = [
-            'transactions' => transaction::where('date', 'like', '%' . $currentDate . '%')->get(),
+            'transactions' => Transaction::where('date', 'like', '%' . $currentDate . '%')->get(),
         ];
         return view('transaction.show', $context);
     }
@@ -32,7 +32,7 @@ class TransactionController extends Controller
     public function single($id)
     {
         $context = [
-            'transaction' => transaction::find($id),
+            'transaction' => Transaction::find($id),
         ];
         return view('transaction.single', $context);
     }
@@ -42,16 +42,16 @@ class TransactionController extends Controller
         $date = new DateTime($month);
         $formattedDate = $date->format('Y-m');
         $context = [
-            'transactions' => transaction::where('date', 'like', '%' . $formattedDate . '%')->get(),
+            'transactions' => Transaction::where('date', 'like', '%' . $formattedDate . '%')->get(),
         ];
         return view('transaction.ul', $context);
     }
     public function edit($id)
     {
         $context = [
-            'transaction' => transaction::find($id),
-            'categories' => category::all(),
-            'accounts' => account::all(),
+            'transaction' => Transaction::find($id),
+            'categories' => Category::all(),
+            'accounts' => Account::all(),
         ];
         return view('transaction.edit', $context);
     }
@@ -65,7 +65,7 @@ class TransactionController extends Controller
             'note' => 'nullable|string',
         ]);
 
-        $transaction = transaction::find($id);
+        $transaction = Transaction::find($id);
 
         if ($transaction->impact === 'down') {
             $additionalFields = $request->validate([
@@ -76,15 +76,15 @@ class TransactionController extends Controller
 
         if (isset($formFields['account_id'])) {
             if ($transaction->account_id != $formFields['account_id']) {
-                $account = account::find($transaction->account_id);
+                $account = Account::find($transaction->account_id);
                 $account->balance = $account->balance + $transaction->amount;
                 $account->save();
 
-                $account = account::find($formFields['account_id']);
+                $account = Account::find($formFields['account_id']);
                 $account->balance = $account->balance - $formFields['amount'];
                 $account->save();
             } else {
-                $account = account::find($transaction->account_id);
+                $account = Account::find($transaction->account_id);
                 $account->balance = $account->balance - $transaction->amount + $formFields['amount'];
                 $account->save();
             }
@@ -105,9 +105,9 @@ class TransactionController extends Controller
             'note' => 'nullable|string',
         ]);
         $formFields['impact'] = 'down';
-        $transaction = transaction::Create($formFields);
+        $transaction = Transaction::Create($formFields);
 
-        $account = account::find($transaction->account_id);
+        $account = Account::find($transaction->account_id);
         $account->balance = $account->balance - $transaction->amount;
         $account->save();
 
@@ -115,9 +115,9 @@ class TransactionController extends Controller
     }
     public function destroy($id)
     {
-        $transaction = transaction::find($id);
+        $transaction = Transaction::find($id);
 
-        $account = account::find($transaction->account_id);
+        $account = Account::find($transaction->account_id);
         if ($transaction->impact === 'down')
             $account->balance = $account->balance + $transaction->amount;
         else
@@ -131,8 +131,8 @@ class TransactionController extends Controller
     public function topupShow()
     {
         $context = [
-            'categories' => category::all(),
-            'accounts' => account::all(),
+            'categories' => Category::all(),
+            'accounts' => Account::all(),
             'topup' => 'true',
         ];
         return view('transaction.index', $context);
@@ -148,9 +148,9 @@ class TransactionController extends Controller
             'note' => 'nullable|string',
         ]);
         $formFields['impact'] = 'up';
-        $transaction = transaction::Create($formFields);
+        $transaction = Transaction::Create($formFields);
 
-        $account = account::find($transaction->account_id);
+        $account = Account::find($transaction->account_id);
         $account->balance = $account->balance + $transaction->amount;
         $account->save();
 
