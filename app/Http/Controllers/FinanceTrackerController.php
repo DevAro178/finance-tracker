@@ -50,7 +50,39 @@ class FinanceTrackerController extends Controller
     }
     public function profile()
     {
-        return view('finance.profile');
+        $user = auth()->user();
+        $context = [
+            'user' => $user,
+        ];
+
+        return view('finance.profile', $context);
+    }
+    public function profileUpdate(Request $request)
+    {
+        // dd($request->all());
+        $formFields = $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
+            'bio' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'postalcode' => 'nullable|string|max:255',
+        ]);
+
+        if ($request->hasFile('picture')) {
+            $formFields['picture'] = $request->file('picture')->store('pictures', 'public');
+        }
+
+        if ($request->hasFile('bgimage')) {
+            $formFields['bgimage'] = $request->file('bgimage')->store('bgimage', 'public');
+        }
+
+        $user = auth()->user();
+        $user->update($formFields);
+        $user->save();
+
+        return redirect()->back();
     }
     public function settings()
     {

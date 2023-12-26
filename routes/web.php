@@ -40,7 +40,6 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/logout', [authController::class, 'logout'])->name('logout');
     Route::get('/', [FinanceTrackerController::class, 'index'])->name('dashboard');
-    Route::get('/profile', [FinanceTrackerController::class, 'profile'])->name('profile');
     Route::get('/settings', [FinanceTrackerController::class, 'settings'])->name('settings');
     Route::get('/billing', [FinanceTrackerController::class, 'billing'])->name('billing');
 
@@ -74,5 +73,11 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete/{id}', [TransactionController::class, 'destroy'])->name('delete.transaction');
         Route::get('/{id}', [TransactionController::class, 'single'])->name('single.transaction.show');
         Route::get('/filter/{month}', [TransactionController::class, 'filtered'])->name('transaction.month');
+    });
+
+    // Profile Routes
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [FinanceTrackerController::class, 'profile'])->name('profile');
+        Route::put('/', [FinanceTrackerController::class, 'profileUpdate'])->name('profile.update');
     });
 });
