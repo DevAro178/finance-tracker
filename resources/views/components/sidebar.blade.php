@@ -60,8 +60,8 @@
                 </div>
             </div>
         </div>
-        <a href="{{ route('topup.transaction.show') }}" class="btn btn-dark btn-sm w-100 mb-3">Account Topups</a>
-        <a class="btn btn-primary btn-sm mb-0 w-100" href="{{ route('add.transaction') }}"
-            type="button">Transactions</a>
+        <a href="{{ route('transfer.interAccount') }}" class="btn btn-dark btn-sm w-100 mb-3">Inter Accounts</a>
+        <a href="{{ route('topup.transaction.show') }}" class="btn btn-primary btn-sm w-100 mb-3">Account Topups</a>
+        <a class="btn btn-dark btn-sm mb-0 w-100" href="{{ route('add.transaction') }}" type="button">Transactions</a>
     </div>
 </aside>

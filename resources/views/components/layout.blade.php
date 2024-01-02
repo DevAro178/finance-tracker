@@ -19,7 +19,8 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <link href="{{ asset('/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
     <!-- CSS Files -->
-    <link id="pagestyle" href="{{ asset('/assets/css/argon-dashboard.css?v=2.0.4') }}" rel="stylesheet" />
+    <link id="pagestyle" href="{{ asset('/assets/css/argon-dashboard.css?v=2.0.4') }}?v={{ time() }}"
+        rel="stylesheet" />
 </head>
 
 <body {{ $attributes->merge(['class' => 'g-sidenav-show bg-gray-100']) }}>

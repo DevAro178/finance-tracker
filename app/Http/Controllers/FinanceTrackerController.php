@@ -19,8 +19,9 @@ class FinanceTrackerController extends Controller
         $saving_Accounts = Account::where('user_id', auth()->user()->id)->where('type', 'saving')->get();
         // Calculations
         $spentPerMonth = [];
-        for ($i = 0; $i < 12; $i++) {
-            $month = date('Y-m', strtotime("-$i month"));
+        $currentYear = date('Y'); // Get the current year
+        for ($i = 1; $i <= 12; $i++) {
+            $month = $currentYear . '-' . str_pad($i, 2, '0', STR_PAD_LEFT); // Format the month
             $spent = 0;
             foreach ($current_Accounts as $current_Account) {
                 $transactions = $current_Account->transaction()->where('date', 'like', $month . '%')->get();
@@ -30,10 +31,8 @@ class FinanceTrackerController extends Controller
             }
             $spentPerMonth[] = $spent;
         }
-        $spentPerMonth = array_reverse($spentPerMonth);
         $spent = $spentPerMonth[date('n') - 1];
         $spentPerMonthString = implode(", ", $spentPerMonth);
-
         $remaining = $current_Accounts->sum('balance');
         $total_Income = $spent + $remaining;
         $savings = $saving_Accounts->sum('balance');

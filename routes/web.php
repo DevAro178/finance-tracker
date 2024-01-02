@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FinanceTrackerController;
+use App\Http\Controllers\interAccount;
 use App\Http\Controllers\TransactionController;
 
 /*
@@ -50,6 +51,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [AccountController::class, 'edit'])->name('edit.account');
         Route::put('/edit/{id}', [AccountController::class, 'update'])->name('edit.account.update');
         Route::delete('/delete/{id}', [AccountController::class, 'destroy'])->name('delete.account');
+    });
+
+    // Inter Account Routes
+    Route::prefix('interAccount')->group(function () {
+        Route::get('/transfer', [interAccount::class, 'index'])->name('transfer.interAccount');
+        Route::post('/transfer', [interAccount::class, 'makeTransaction'])->name('post.transfer.interAccount');
     });
 
     // Category Routes

@@ -132,6 +132,7 @@
                                                                     ->get();
                                                                 $spent = $transactions->sum('amount');
                                                                 $percentage = ($spent / $category->amount) * 100;
+                                                                $percentage = round($percentage, 1);
 
                                                             @endphp
                                                             {{ $percentage }}%
